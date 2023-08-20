@@ -1,7 +1,8 @@
 package com.nocly.jarvis;
 
-import com.nocly.jarvis.commands.CommandManager;
+import com.nocly.jarvis.handler.CommandHandler;
 import com.nocly.jarvis.listeners.EventListener;
+
 import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
@@ -58,7 +59,10 @@ public class Jarvis {
         shardManager = builder.build();
 
         //Register Listeners
-        shardManager.addEventListener(new EventListener(), new CommandManager());
+        shardManager.addEventListener(
+                new EventListener(),
+                new CommandHandler()
+        );
 
     }
 

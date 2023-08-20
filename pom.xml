@@ -20,6 +20,13 @@
             <name>m2-dv8tion</name>
             <url>https://m2.dv8tion.net/releases</url>
         </repository>
+
+        <repository>
+            <id>m2-duncte123</id>
+            <name>m2-duncte123</name>
+            <url>https://m2.duncte123.dev/releases</url>
+        </repository>
+
     </repositories>
 
 
@@ -44,6 +51,13 @@
             <artifactId>player</artifactId>
             <version>4.2.0</version>
         </dependency>
+
+        <dependency>
+            <groupId>me.duncte123</groupId>
+            <artifactId>botCommons</artifactId>
+            <version>2.3.14</version>
+        </dependency>
+
     </dependencies>
 
 

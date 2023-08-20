@@ -4,6 +4,7 @@ import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.channel.Channel;
+import net.dv8tion.jda.api.entities.channel.ChannelType;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
@@ -37,7 +38,7 @@ public class EventListener extends ListenerAdapter {
 
         String msg = "`"+user.getName()+"`" + " a reagit au message avec " + emoji + " dans le channel " + channelMention;
 
-       //event.getChannel().sendMessage(msg).queue();
+        //event.getChannel().sendMessage(msg).queue();
 
         // send message in the default channel of the guild
         event.getGuild().getDefaultChannel().asTextChannel().sendMessage(msg).queue();
@@ -52,6 +53,17 @@ public class EventListener extends ListenerAdapter {
         String msg = event.getMessage().getContentRaw();
         if (msg.contains("ping")){
             event.getChannel().sendMessage("pong").queue();
+        }
+        else if (event.isFromType(ChannelType.PRIVATE))
+        {
+            System.out.printf("[PM] %s: %s\n", event.getAuthor().getName(),
+                    event.getMessage().getContentDisplay());
+        }
+        else
+        {
+            System.out.printf("[%s][%s] %s: %s\n", event.getGuild().getName(),
+                    event.getChannel().getName(), event.getMember().getEffectiveName(),
+                    event.getMessage().getContentDisplay());
         }
     }
 
