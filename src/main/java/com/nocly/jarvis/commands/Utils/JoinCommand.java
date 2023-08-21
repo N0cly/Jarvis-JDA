@@ -1,13 +1,10 @@
 package com.nocly.jarvis.commands.Utils;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
+import com.nocly.jarvis.handler.ICommand;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.channel.concrete.VoiceChannel;
-import net.dv8tion.jda.api.events.guild.GuildReadyEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import net.dv8tion.jda.api.interactions.commands.SlashCommandInteraction;
-import net.dv8tion.jda.api.interactions.commands.build.CommandData;
-import net.dv8tion.jda.api.interactions.commands.build.Commands;
+import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.managers.AudioManager;
 
 
@@ -16,9 +13,25 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
-public class JoinCommand {
+public class JoinCommand implements ICommand {
 
-    public JoinCommand(SlashCommandInteractionEvent event){
+    @Override
+    public String getName() {
+        return "join";
+    }
+
+    @Override
+    public String getDescription() {
+        return "join voice channel";
+    }
+
+    @Override
+    public List<OptionData> getOptions() {
+        return null;
+    }
+
+    @Override
+    public void execute(SlashCommandInteractionEvent event) {
 
         String command = event.getName();
         if (command.equals("join")){
@@ -52,10 +65,5 @@ public class JoinCommand {
 
             event.reply("Je suis la ;)").setEphemeral(true).queue();
         }
-    }
-
-    public JoinCommand(GuildReadyEvent event, List<CommandData> commandData){
-        commandData.add(Commands.slash("join","join voice channel"));
-
     }
 }

@@ -1,15 +1,30 @@
 package com.nocly.jarvis.commands.Utils;
 
-import net.dv8tion.jda.api.events.guild.GuildReadyEvent;
+import com.nocly.jarvis.handler.ICommand;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import net.dv8tion.jda.api.interactions.commands.build.CommandData;
-import net.dv8tion.jda.api.interactions.commands.build.Commands;
+import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 
 import java.util.List;
 
-public class PingCommand {
+public class PingCommand implements ICommand {
 
-    public PingCommand(SlashCommandInteractionEvent event){
+    @Override
+    public String getName() {
+        return "ping";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Calculate bot's response time";
+    }
+
+    @Override
+    public List<OptionData> getOptions() {
+        return null;
+    }
+
+    @Override
+    public void execute(SlashCommandInteractionEvent event) {
         String command = event.getName();
 
         if (command.equals("ping")){
@@ -20,9 +35,5 @@ public class PingCommand {
                 response.editOriginal("Pong! Bot's response time: " + ping + "ms").queue();
             });
         }
-    }
-
-    public PingCommand(GuildReadyEvent event, List<CommandData> commandData){
-        commandData.add(Commands.slash("ping","Calculate bot's response time"));
     }
 }

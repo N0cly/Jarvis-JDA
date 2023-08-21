@@ -1,6 +1,7 @@
 package com.nocly.jarvis;
 
-import com.nocly.jarvis.handler.CommandHandler;
+import com.nocly.jarvis.commands.Utils.*;
+import com.nocly.jarvis.handler.CommandManager;
 import com.nocly.jarvis.listeners.EventListener;
 
 import io.github.cdimascio.dotenv.Dotenv;
@@ -17,12 +18,12 @@ import javax.security.auth.login.LoginException;
 
 /**
  * JDA 5.0.0 bot Discord Jarvis
- *
+ *Main programme
  *
  * @author Nocly
  */
 
-public class Jarvis {
+public class  Jarvis {
 
     private final Dotenv config;
     private final ShardManager shardManager;
@@ -43,7 +44,6 @@ public class Jarvis {
         builder.setActivity(Activity.listening("SUNLIGHTS"));
         builder.enableIntents(
                 GatewayIntent.GUILD_MEMBERS,
-                GatewayIntent.GUILD_BANS,
                 GatewayIntent.GUILD_INVITES,
                 GatewayIntent.GUILD_VOICE_STATES,
                 GatewayIntent.GUILD_PRESENCES,
@@ -58,10 +58,21 @@ public class Jarvis {
         builder.enableCache(CacheFlag.ONLINE_STATUS);
         shardManager = builder.build();
 
+        CommandManager manager = new CommandManager();
+        manager.add(new WelcomeCommand());
+        manager.add(new EmoteCommand());
+        manager.add(new RolesCommand());
+        manager.add(new GiveroleCommand());
+        manager.add(new PingCommand());
+        manager.add(new SayCommand());
+        manager.add(new JoinCommand());
+
+
+
         //Register Listeners
         shardManager.addEventListener(
                 new EventListener(),
-                new CommandHandler()
+                manager
         );
 
     }

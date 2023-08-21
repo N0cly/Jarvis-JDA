@@ -1,24 +1,34 @@
 package com.nocly.jarvis.commands.Utils;
 
+import com.nocly.jarvis.handler.ICommand;
 import net.dv8tion.jda.api.entities.Role;
-import net.dv8tion.jda.api.events.guild.GuildReadyEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import net.dv8tion.jda.api.interactions.commands.SlashCommandInteraction;
-import net.dv8tion.jda.api.interactions.commands.build.CommandData;
-import net.dv8tion.jda.api.interactions.commands.build.Commands;
+import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 
 import java.util.List;
 
 /**
  *
  */
-public class RolesCommand {
+public class RolesCommand implements ICommand {
 
-    /**
-     *
-     * @param event
-     */
-    public RolesCommand(SlashCommandInteractionEvent event){
+    @Override
+    public String getName() {
+        return "roles";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Display all roles on the server";
+    }
+
+    @Override
+    public List<OptionData> getOptions() {
+        return null;
+    }
+
+    @Override
+    public void execute(SlashCommandInteractionEvent event) {
 
         String command = event.getName();
 
@@ -30,10 +40,5 @@ public class RolesCommand {
             }
             event.getHook().sendMessage(response).queue();
         }
-    }
-
-    public RolesCommand(GuildReadyEvent event, List<CommandData> commandData){
-        commandData.add(Commands.slash("roles","Display all roles on the server"));
-
     }
 }
