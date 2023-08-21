@@ -5,10 +5,7 @@ import com.nocly.jarvis.commands.Utils.*;
 import net.dv8tion.jda.api.events.guild.GuildReadyEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
-import net.dv8tion.jda.api.interactions.commands.build.Commands;
-import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -29,6 +26,10 @@ public class CommandHandler extends ListenerAdapter {
             new JoinCommand(event);
         } else if (command.equals("say")){
             new SayCommand(event);
+        } else if (command.equals("emote")){
+            new EmoteCommand(event);
+        } else if (command.equals("giverole")){
+            new GiveroleCommand(event);
         }
     }
 
@@ -37,15 +38,13 @@ public class CommandHandler extends ListenerAdapter {
     @Override
     public void onGuildReady(@NotNull GuildReadyEvent event) {
         List<CommandData> commandData = new ArrayList<>();
-        commandData.add(Commands.slash("welcome","Get welcome by the bot."));
-        commandData.add(Commands.slash("roles","Display all roles on the server"));
-        commandData.add(Commands.slash("join","join voice channel"));
 
-        OptionData opt1 = new OptionData(OptionType.STRING, "message", "the message you want the bot say",true);
-        OptionData opt2 = new OptionData(OptionType.CHANNEL, "channel", "The channel you went to send this message", false);
-        commandData.add(Commands.slash("say","Make the bot say a message").addOptions(opt1, opt2));
-
-        event.getGuild().updateCommands().addCommands(commandData).queue();
+        new WelcomeCommand(event, commandData);
+        new RolesCommand(event, commandData);
+        new JoinCommand(event, commandData);
+        new SayCommand(event, commandData);
+        new EmoteCommand(event, commandData);
+        new GiveroleCommand(event, commandData);
     }
 
     //@Override
