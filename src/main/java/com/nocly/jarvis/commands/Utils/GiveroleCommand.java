@@ -33,8 +33,6 @@ public class GiveroleCommand {
         OptionData opt4 = new OptionData(OptionType.USER, "user", "the user to give the role to", true);
         OptionData opt5 = new OptionData(OptionType.ROLE, "role","the role to be given", true);
         commandData.add(Commands.slash("giverole","Give a user a role").addOptions(opt4,opt5));
-
-        event.getGuild().updateCommands().addCommands(commandData).queue();
     }
 
 }

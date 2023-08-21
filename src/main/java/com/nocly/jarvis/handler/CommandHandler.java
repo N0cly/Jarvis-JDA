@@ -22,6 +22,7 @@ public class CommandHandler extends ListenerAdapter {
         new SayCommand(event);
         new EmoteCommand(event);
         new GiveroleCommand(event);
+        new PingCommand(event);
 
     }
 
@@ -37,6 +38,8 @@ public class CommandHandler extends ListenerAdapter {
         new SayCommand(event, commandData);
         new EmoteCommand(event, commandData);
         new GiveroleCommand(event, commandData);
+        new PingCommand(event, commandData);
+        event.getGuild().updateCommands().addCommands(commandData).queue();
     }
 
     //@Override
