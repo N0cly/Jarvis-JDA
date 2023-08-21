@@ -41,11 +41,7 @@
             <artifactId>dotenv-java</artifactId>
             <version>3.0.0</version>
         </dependency>
-        <dependency>
-            <groupId>com.sedmelluq</groupId>
-            <artifactId>lavaplayer</artifactId>
-            <version>1.3.77</version>
-        </dependency>
+
         <dependency>
             <groupId>com.kunminx.player</groupId>
             <artifactId>player</artifactId>
@@ -58,6 +54,11 @@
             <version>2.3.14</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.sedmelluq</groupId>
+            <artifactId>lavaplayer</artifactId>
+            <version>1.3.77</version>
+        </dependency>
     </dependencies>
 
 

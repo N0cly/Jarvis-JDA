@@ -66,6 +66,12 @@ public class  Jarvis {
         manager.add(new PingCommand());
         manager.add(new SayCommand());
         manager.add(new JoinCommand());
+        manager.add(new PlayCommand());
+        manager.add(new NowPlayingCommand());
+        manager.add(new QueueCommand());
+        manager.add(new RolesCommand());
+        manager.add(new SkipCommand());
+        manager.add(new StopCommand());
 
 
 

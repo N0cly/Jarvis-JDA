@@ -33,37 +33,35 @@ public class JoinCommand implements ICommand {
     @Override
     public void execute(SlashCommandInteractionEvent event) {
 
-        String command = event.getName();
-        if (command.equals("join")){
-            if (!event.isFromGuild()) return;
-            if (event.getUser().isBot()) return;
-            Guild guild = event.getGuild();
+
+        if (!event.isFromGuild()) return;
+        if (event.getUser().isBot()) return;
+        Guild guild = event.getGuild();
 
 
+        VoiceChannel channel = guild.getVoiceChannelsByName("music", true).get(0);
+        AudioManager manager = guild.getAudioManager();
 
-            VoiceChannel channel = guild.getVoiceChannelsByName("music", true).get(0);
-            AudioManager manager = guild.getAudioManager();
+        //manager.setSendingHandler(new MySendHandler());
+        manager.openAudioConnection(channel);
 
-            //manager.setSendingHandler(new MySendHandler());
-            manager.openAudioConnection(channel);
+        String path = "C:/Users/Ninja/Documents/01.Programme/Java/test.json";
 
-            String path = "C:/Users/Ninja/Documents/01.Programme/Java/test.json";
+        File file = new File(path);
 
-            File file = new File(path);
-
-            try {
-                if (!file.exists())
-                    file.createNewFile();
-                FileWriter writer = new FileWriter(file);
-                writer.write(event.toString());
-                writer.flush();
-                writer.close();
-            } catch (IOException e) {
-                System.out.println("Erreur: impossible de créer le fichier '"
-                        + path + "'");
-            }
-
-            event.reply("Je suis la ;)").setEphemeral(true).queue();
+        try {
+            if (!file.exists())
+                file.createNewFile();
+            FileWriter writer = new FileWriter(file);
+            writer.write(event.toString());
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Erreur: impossible de créer le fichier '"
+                    + path + "'");
         }
+
+        event.reply("Je suis la ;)").setEphemeral(true).queue();
+
     }
 }
