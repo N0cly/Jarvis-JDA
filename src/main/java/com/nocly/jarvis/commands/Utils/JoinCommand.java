@@ -3,6 +3,7 @@ package com.nocly.jarvis.commands.Utils;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.channel.concrete.VoiceChannel;
 import net.dv8tion.jda.api.events.guild.GuildReadyEvent;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.SlashCommandInteraction;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
@@ -12,18 +13,22 @@ import java.util.List;
 
 public class JoinCommand {
 
-    public JoinCommand(SlashCommandInteraction event){
-        if (!event.isFromGuild()) return;
-        if (event.getUser().isBot()) return;
-        Guild guild = event.getGuild();
+    public JoinCommand(SlashCommandInteractionEvent event){
 
-        VoiceChannel channel = guild.getVoiceChannelsByName("music", true).get(0);
-        AudioManager manager = guild.getAudioManager();
+        String command = event.getName();
+        if (command.equals("join")){
+            if (!event.isFromGuild()) return;
+            if (event.getUser().isBot()) return;
+            Guild guild = event.getGuild();
 
-        //manager.setSendingHandler(new MySendHandler());
-        manager.openAudioConnection(channel);
+            VoiceChannel channel = guild.getVoiceChannelsByName("music", true).get(0);
+            AudioManager manager = guild.getAudioManager();
 
-        event.reply("Je suis la ;)").setEphemeral(true).queue();
+            //manager.setSendingHandler(new MySendHandler());
+            manager.openAudioConnection(channel);
+
+            event.reply("Je suis la ;)").setEphemeral(true).queue();
+        }
     }
 
     public JoinCommand(GuildReadyEvent event, List<CommandData> commandData){

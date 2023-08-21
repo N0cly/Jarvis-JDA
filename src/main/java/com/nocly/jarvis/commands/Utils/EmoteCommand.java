@@ -1,6 +1,7 @@
 package com.nocly.jarvis.commands.Utils;
 
 import net.dv8tion.jda.api.events.guild.GuildReadyEvent;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.SlashCommandInteraction;
@@ -11,24 +12,30 @@ import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import java.util.List;
 
 public class EmoteCommand {
-    public EmoteCommand(SlashCommandInteraction event){
+    public EmoteCommand(SlashCommandInteractionEvent event){
 
-        OptionMapping option = event.getOption("type");
-        String type = option.getAsString();
+        String command = event.getName();
 
-        String replyMessage = "";
-        switch (type.toLowerCase()){
-            case "hug" -> {
-                replyMessage = "You hug the closest person to you";
+        if (command.equals("emote")){
+            OptionMapping option = event.getOption("type");
+            String type = option.getAsString();
+
+            String replyMessage = "";
+            switch (type.toLowerCase()){
+                case "hug" -> {
+                    replyMessage = "You hug the closest person to you";
+                }
+                case "laugh" ->{
+                    replyMessage = "You laugh hysterically at everyone around you";
+                }
+                case "cry" -> {
+                    replyMessage = "You can't stop cry ?";
+                }
             }
-            case "laugh" ->{
-                replyMessage = "You laugh hysterically at everyone around you";
-            }
-            case "cry" -> {
-                replyMessage = "You can't stop cry ?";
-            }
+            event.reply(replyMessage).queue();
         }
-        event.reply(replyMessage).queue();
+
+
 
     }
 

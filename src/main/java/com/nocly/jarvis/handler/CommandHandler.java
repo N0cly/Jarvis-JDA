@@ -16,21 +16,13 @@ public class CommandHandler extends ListenerAdapter {
     @Override
     public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event) {
 
-        String command = event.getName();
+        new WelcomeCommand(event);
+        new RolesCommand(event);
+        new JoinCommand(event);
+        new SayCommand(event);
+        new EmoteCommand(event);
+        new GiveroleCommand(event);
 
-        if (command.equals("welcome")) {
-            new WelcomeCommand(event);
-        } else if (command.equals("roles")) {
-            new RolesCommand(event);
-        } else if (command.equals("join")) {
-            new JoinCommand(event);
-        } else if (command.equals("say")){
-            new SayCommand(event);
-        } else if (command.equals("emote")){
-            new EmoteCommand(event);
-        } else if (command.equals("giverole")){
-            new GiveroleCommand(event);
-        }
     }
 
     // Guild command -- instantly updated (max 100)

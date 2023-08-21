@@ -3,6 +3,7 @@ package com.nocly.jarvis.commands.Utils;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.guild.GuildReadyEvent;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.SlashCommandInteraction;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
@@ -12,12 +13,19 @@ import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import java.util.List;
 
 public class GiveroleCommand {
-    public GiveroleCommand(SlashCommandInteraction event){
-        Member member = event.getOption("user").getAsMember();
-        Role role = event.getOption("role").getAsRole();
 
-        event.getGuild().addRoleToMember(member, role).queue();
-        event.reply(member.getAsMention() + " has been given the "+ role.getAsMention() +" role!").queue();
+
+    public GiveroleCommand(SlashCommandInteractionEvent event){
+
+        String command = event.getName();
+
+        if (command.equals("giverole")){
+            Member member = event.getOption("user").getAsMember();
+            Role role = event.getOption("role").getAsRole();
+
+            event.getGuild().addRoleToMember(member, role).queue();
+            event.reply(member.getAsMention() + " has been given the "+ role.getAsMention() +" role!").queue();
+        }
 
     }
 

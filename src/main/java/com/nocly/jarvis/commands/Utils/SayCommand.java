@@ -3,6 +3,7 @@ package com.nocly.jarvis.commands.Utils;
 import net.dv8tion.jda.api.entities.channel.ChannelType;
 import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
 import net.dv8tion.jda.api.events.guild.GuildReadyEvent;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.SlashCommandInteraction;
@@ -14,22 +15,28 @@ import java.util.List;
 
 public class SayCommand {
 
-    public SayCommand(SlashCommandInteraction event){
-        OptionMapping msgOption = event.getOption("message");
-        String msg = msgOption.getAsString();
+    public SayCommand(SlashCommandInteractionEvent event){
 
-        MessageChannel channel;
+        String command = event.getName();
 
-        OptionMapping channelOption = event.getOption("channel");
-        if (channelOption != null){
+        if (command.equals("say")){
+            OptionMapping msgOption = event.getOption("message");
+            String msg = msgOption.getAsString();
 
-            channel = channelOption.getAsChannel().asGuildMessageChannel();
-        }       else{
-            channel = event.getGuild().getDefaultChannel().asTextChannel();
+            MessageChannel channel;
+
+            OptionMapping channelOption = event.getOption("channel");
+            if (channelOption != null){
+
+                channel = channelOption.getAsChannel().asGuildMessageChannel();
+            }       else{
+                channel = event.getGuild().getDefaultChannel().asTextChannel();
+            }
+
+            channel.sendMessage(msg).queue();
+            event.reply("message send successfully!").setEphemeral(true).queue();
         }
 
-        channel.sendMessage(msg).queue();
-        event.reply("message send successfully!").setEphemeral(true).queue();
 
     }
 
